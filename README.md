@@ -36,10 +36,6 @@ All task and execution details are stored in **MongoDB**.
 
 ---
 
-##  Project Structure
-
----
-
 ##  Execution Steps & Screenshots
 
 | Step | Command / Action | Expected Result | Screenshot |
