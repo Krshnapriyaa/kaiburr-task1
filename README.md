@@ -1,18 +1,18 @@
-# 🚀 Kaiburr Assessment – Task 1 (Java Backend + REST API)
+#  Kaiburr Assessment – Task 1 (Java Backend + REST API)
 
 **Name:** Krishna Priya K P  
 **Date:** 18 October 2025  
 
 ---
 
-## 📘 Overview
+##  Overview
 A Spring Boot (Java 17) backend exposing REST endpoints to create, view, delete and execute **Task** objects.  
 Each task represents a shell command executed inside a Docker container (`task-runner`).  
 All task and execution details are stored in **MongoDB**.
 
 ---
 
-## ⚙️ Tech Stack
+##  Tech Stack
 | Layer | Technology |
 |:------|:------------|
 | Backend | Spring Boot 3.3 |
@@ -24,7 +24,7 @@ All task and execution details are stored in **MongoDB**.
 
 ---
 
-## 🧩 API Endpoints
+##  API Endpoints
 | Method | Endpoint | Purpose |
 |:--------|:----------|:--------|
 | GET | `/api/tasks` | List all tasks |
