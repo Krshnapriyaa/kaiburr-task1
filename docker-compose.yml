@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: task-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  task-runner:
+    image: alpine:3.19
+    container_name: task-runner
+    command: ["sh", "-c", "while true; do sleep 1000; done"]
+    tty: true
+
+  app:
+    build: .
+    container_name: task-api
+    depends_on:
+      - mongo
+      - task-runner
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/taskdb
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongo-data:
