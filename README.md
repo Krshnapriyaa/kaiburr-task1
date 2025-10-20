@@ -47,3 +47,41 @@ docker rm -f task-mongo task-runner 2>$null
 docker run -d --name task-mongo -p 27017:27017 mongo:6.0
 docker run -d --name task-runner alpine:3.19 sh -c "while true; do sleep 1000; done"
 docker ps
+
+
+---
+
+## ▶️ Execution Steps & Screenshots
+
+| Step | Command / Action | Expected Result | Screenshot |
+|:-----|:-----------------|:----------------|:------------|
+| 1 | `docker rm -f task-mongo task-runner 2>$null`<br>`docker run -d --name task-mongo -p 27017:27017 mongo:6.0`<br>`docker run -d --name task-runner alpine:3.19 sh -c "while true; do sleep 1000; done"`<br>`docker ps` | Both Mongo and runner containers are **Up** | ![Docker Containers](./Screenshot%20(196).png) |
+| 2 | `mvn clean package`<br>`mvn spring-boot:run` | Spring Boot application starts on port 8080 | ![Spring Boot Startup](./Screenshot%20(194).png) |
+| 3 | `curl.exe http://localhost:8080/api/tasks` | `[]` (empty list – no tasks yet) | ![GET Empty](./Screenshot%20(195).png) |
+| 4 | ```powershell
+$body = '{
+  "id":"123",
+  "name":"Print Hello",
+  "owner":"John Smith",
+  "command":"echo Hello World!"
+}'
+curl.exe -X PUT http://localhost:8080/api/tasks -H "Content-Type: application/json" -d $body
+``` | Task created – JSON object returned | ![PUT Create Task](./Screenshot%20(197).png) |
+| 5 | `curl.exe http://localhost:8080/api/tasks` | Shows saved task array | *(same as 197)* |
+| 6 | `curl.exe -X PUT http://localhost:8080/api/tasks/123/executions` | Runs command → stores output `"Hello World!"` | *(add your execution screenshot)* |
+| 7 | `curl.exe "http://localhost:8080/api/tasks?id=123"` | Displays task with `taskExecutions` list | *(add your screenshot)* |
+| 8 | `curl.exe -X DELETE http://localhost:8080/api/tasks/123` | “Task deleted successfully” | *(optional)* |
+| 9 | `curl.exe http://localhost:8080/api/tasks` | `[]` – deletion verified | *(optional)* |
+
+---
+
+## 🧾 Sample Responses
+**Create Task**
+```json
+{
+  "id":"123",
+  "name":"Print Hello",
+  "owner":"John Smith",
+  "command":"echo Hello World!",
+  "taskExecutions":[]
+}
